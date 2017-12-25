@@ -1,0 +1,76 @@
+# :: SETTINGS :: #
+
+# These are options for when a player is frozen.
+# They're set to full restriction by default, except for commands.
+# The defaults for commands are only SecureLogin commands.
+
+# Without adding arguments to the commands, and without using spaces,
+# list commands you want players to be able to chat while still frozen.
+# Separate these commands with commas. For example: /god,/gamemode,/kill
+# Remember, these don't grant permissions to commands. They allow players who already
+# have correct permissions to use the commands while they're still frozen.
+# These shouldn't matter if the setting "freezeChat" is set to false. If "freezeChat" is set to false,
+# players will be able to chat both their messages and commands anyway.
+# Notice: You will have to include the aliases to any commands that you want your players to be allowed to enter while frozen.
+# Also Notice: Teleportation commands will not unfreeze a player; they'll still need to log in where they've been teleported to.
+allowedCommands: /login,/register,/sl,/securelogin,/setloginspawn,/loginspawn,/slreload,/createsecurityquestion,/createsq,/changesecurityquestion,/changesq,/createsecurityanswer,/createsa,/changesecurityanswer,/changesa
+
+# If changeQWithQuestion is set to true, then players will change their security question with their old security question.
+# If changeQWithPassword is set to true, then players will change their security question with their current password.
+# WARNING: Do NOT set both to true, or both to false!
+changeQWithQuestion: true
+changeQWithPassword: false
+
+# If changeSAWithQuestion is set to true, then players will change their security answer with their security question.
+# If changeSAWithPassword is set to true, then players will change their security answer with their password.
+# WARNING: Do NOT set both to true, or both to false!
+changeSAWithQuestion: true
+changeSAWithPassword: false
+
+# If changePWithQuestion is set to true, then players will change their passwords using their security question.
+# If changePWithPassword is set to true, then players will change their passwords with their old password.
+# The latter is not recommended, since the player changing their password most likely forgot the old one.
+# WARNING: Do NOT set both to true, or both to false!
+changePWithQuestion: true
+changePWithPassword: false
+
+# Should players not be able to chat before they login?
+freezeChat: true
+# Should players be able to drop items before logging in?
+allowItemDrop: false
+# Should players be able to pick up items before logging in?
+allowItemPickup: false
+# Should players (if they can reach a block) be able to break blocks before logging in?
+allowBlockBreak: false
+# Should players (if they can reach a block to place on) be able to place blocks before logging in?
+allowBlockPlace: false
+# Should players be vulnerable before logging in?
+allowGetDamaged: false
+# Should players be able to damage other entities before logging in?
+allowDamaging: false
+# Should players be able to interact with buttons, levers, chests, etc. before logging in?
+allowInteract: false
+
+# Do players teleport to the Login Spawn when they join the server?
+# Players will not be teleported either way if they have "securelogin.nofreeze" permission.
+# If there is no Login Spawn, players will not be telported, and players with the permission
+# "securelogin.seespawnwarning" will be warned that there is no spawn; this will also be logged
+# in the console. If you wish to remain with your Login Spawn nonexistent, set this to false and
+# admins will not be spammed with a warning message (nor will the console).
+tpLoginSpawn: true
+
+# If tpLoginSpawn is set to true, players will teleport back to their previous location after
+# logging in?
+tpBack: true
+
+# :: MESSAGES :: #
+
+# This message tells players that they must log in after they join.
+# You may want to tell them to use /register in case they don't have a password.
+Must-Login-Message: '&cLog in with /login <password>. If you have no password, use /register <password>.'
+
+# This message tells people that they have been released from the chains of SecureLogin.
+Unfreeze-Message: '&aYou have been released! Be free!'
+
+# This message tells players that they have registered with /register.
+You-Have-Registered-Message: '&aYou have registered with your new password. Use /login to be released.'

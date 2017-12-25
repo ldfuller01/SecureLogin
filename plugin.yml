@@ -1,0 +1,51 @@
+name: SecureLogin
+main: me.pookeythekid.securelogin.Main
+version: 1.8.4
+description: >
+             Login Passwords.
+commands:
+  login:
+    description: Log into the game with your password.
+  register:
+    description: If you don't have a password, make one.
+  getpassword:
+    description: Get someone's password.
+  createsecurityquestion:
+    description: Create a question to answer when changing password or Security Question.
+    aliases: [createsq]
+  getsecurityquestion:
+    description: Get someone's Security Question.
+    aliases: [getsq]
+  createsecurityanswer:
+    description: Create the answer to your Security Question.
+    aliases: [createsa]
+  getsecurityanswer:
+    description: Get someone's Security Answer.
+    aliases: [getsa]
+  changepassword:
+    description: Change your password.
+  changepasswordfor:
+    description: Change someone else's password.
+  changesecurityquestion:
+    description: Change your Security Question.
+    aliases: [changesq]
+  changesqfor:
+    description: Change someone else's Security Question.
+  changesecurityanswer:
+    description: Change your Security Answer.
+    aliases: [changesa]
+  changesafor:
+    description: Change someone else's Security Answer.
+  setloginspawn:
+    description: Set the place where you're teleported when you login.
+  loginspawn:
+    description: Teleport to the place where players login.
+  slreload:
+    description: Reload the config.
+#  setmessage:
+#    description: Set the message that you receive on different occasions.
+#  setmessagehelp:
+#    description: See more about /setmessage.
+  securelogin:
+    description: See the help page for this plugin.
+    aliases: [sl]
