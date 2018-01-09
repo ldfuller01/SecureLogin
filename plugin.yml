@@ -1,6 +1,6 @@
 name: SecureLogin
 main: me.pookeythekid.securelogin.Main
-version: 1.8.4
+version: 1.8.5
 description: >
              Login Passwords.
 commands:

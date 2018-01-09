@@ -1,0 +1,135 @@
+Version 1.8.5
+- Updated config file's allowedCommands section.
+- Section is now formatted in a vertical list, as opposed to a horizontal, comma-separated list.
+- Also added the rest of the SecureLogin commands that were not included originally, most notably the /changepassword command.
+- All of this is updated automatically, so don't worry about a thing, my sweet child.
+
+Version 1.8.4
+- Fixed bugs in the process of switching from names to UUIDs in the players.yml file.
+- Unless you know how to fix your old players.yml file by following the pattern of the rest of the file (it's only the first and/or second player
+  in the file that's affected), simply delete your players.yml file before installing this version. But only do this if you had version 1.8.3
+  installed before this version!
+- Added in some v1.8.3 commands to the command help menu; just forgot to put them in when making the last version.
+
+Version 1.8.3
+- **Updated player file to UUID format.** Players are now found by their UUIDs in the file. Their usernames are still
+  visible; a new "Name" key has been added to the player sections as well. Don't worry about changing the file, the
+  plugin will automatically rearrange it for you.
+- Added the ability to view others' passwords.
+- Added the ability to view others' Security Questions.
+- Added the ability to view others' Security Answers.
+- Added the ability to change others' passwords.
+- Added the ability to change others' Security Questions.
+- Added the ability to change others' Security Answers.
+- Added the ability to teleport other players to the Login Spawn.
+- New command: /getpassword - View someone's password.
+- New command: /getsecurityquestion (/getsq) - View someone's Security Question.
+- New command: /getsecurityanswer (/getsa) - View someone's Security Answer.
+- New command: /changepasswordfor - Change someone else's password.
+- New command: /changesqfor - Change someone else's Security Question.
+- New command: /changesafor - Change someone else's Security Answer.
+- Changed command: /loginspawn [player] - If player argument is inserted, the specified player will be
+  teleported to the Login Spawn.
+- New permission node: securelogin.getpassword - Grants access to /getpassword.
+- New permission node: securelogin.getsecurityquestion - Grants access to /getsecurityquestion.
+- New permission node: securelogin.getsecurityanswer - Grants access to /getsecurityanswer.
+- New permission node: securelogin.changepassword.other - Grants access to /changepasswordfor.
+- New permission node: securelogin.changesecurityquestion.other - Grants access to /changesqfor.
+- New permission node: securelogin.changesecurityanswer.other - Grants access to /changesafor.
+- New permission node: securelogin.loginspawn.other - Grants access to /loginspawn <player>.
+- Fixed a bug in the process of changing Security Answers. Not sure why no one reported this in the comments,
+  since this bug made it impossible to change your own Security Answer.
+
+Version 1.8.2
+- Fixed the tpBack feature. Now when players log in they may be successfully teleported back to their
+  original login location, as dictated by the config file.
+- Cleaned up a few minor errors in the reloading process.
+- Fixed a couple of typos in the config file.
+
+Version 1.8.1
+- Added Security Answer commands to the allowedCommands list in the config file. Not allowing these
+  commands in the first place was a complete mistake.
+
+Version 1.8.0
+- Added Security Questions.
+- Added Security Answers.
+- Added changing passwords.
+- Added configurable settings to block or unblock chat, item dropping, item pickup, breaking blocks,
+  placing blocks, getting damaged, damaging other entities, and interacting with objects while a
+  player is still frozen.
+- Added a configurable list of commands that players are allowed to issue while they're still frozen.
+- Made teleporting players to the LoginSpawn after logging in an option, instead of forcing it.
+- Added the option to teleport players back to their previous login location after having entered their
+  password at the LoginSpawn.
+- **Updated the format of permission nodes to all lower case. Change your permission nodes in your permissions
+  plugin to match this.**
+- Added permission nodes for every command, as well as given a default allowance to each command's permission.
+  For example, /SecureLogin used to have no permission node, making it accessible to everyone. Now it has a
+  permission node that allows everyone to use it regardless of granting it in your permissions list. This feature
+  also allows for negating permission nodes, if for some reason you don't want players to have their default commands.
+- **Changed "SecureLogin.freezeOnLogin.exempt" permission node to "securelogin.nofreeze".**
+- New command: /CreateSecurityQuestion (Alias: /CreateSQ) - Create your security question that you may use
+  (according to the config file) to change your password, your old Security Question, or your old Security Answer
+  (the answer to your Security Question).
+- New permission node: securelogin.createsecurityquestion - Grants access to /CreateSecurityAnswer.
+- New command: /ChangeSecurityQuestion (Alias: /ChangeSQ) - Change your Security Question.
+- New permission node: securelogin.changesecurityquestion - Grants access to /ChangeSecurityQuestion.
+- New command: /CreateSecurityAnswer (Alias: /CreateSA) - Create the answer to your Security Question.
+- New permission node: securelogin.createsecurityanswer - Grants access to /CreateSecurityAnswer.
+- New command: /ChangeSecurityAnswer (Alias: /ChangeSA) - Change the answer to your Security Question.
+- New permission node: securelogin.changesecurityanswer - Grants access to /ChangeSecurityAnswer.
+- New command: /ChangePassword - Change your password (go figure!).
+- New permission node: securelogin.changepassword - Grants access to /ChangePassword
+- New permission node: securelogin.login - Grants access to /Login
+- New permission node: securelogin.register - Grants access to /Register
+- **Fixed config comments, so now everything makes plenty of sense.**
+- Split the config file into three files: players.yml, loginspawn.yml, and config.yml.
+
+**The configuration file is now read differently! Take the following steps in order to not break your plugin!**
+- Install SecureLogin v1.8.0 to your server, then restart or reload the server.
+- Copy your "Players" section out of the main config, and paste it into your new "players.yml" file in the SecureLogin
+  plugin folder.
+- Copy your "LoginSpawn" section out of your main config, and paste it into your new "loginspawn.yml" file in the
+  SecureLogin plugin folder.
+- **Delete** your config.yml, which at this point is still your old config file, and then restart/reload your server again.
+  This will update the config file to add its new settings and comments.
+  
+- Removed command: /SetMessage. Reason: It's quite difficult to put descriptive comments on messages in the config file without
+  splitting the messages all into different files, which is still a bit difficult. No worries, you can still change them whenever
+  you want to via directly using the config file. I'll try to put /SetMessage back into the plugin when I get the chance.
+- Removed permission node: SecureLogin.setMessage. Reason: /SetMessage has been removed, making this node useless.
+- Removed command: /SetMessageHelp. Reason: /SetMessage has been removed, making this command useless.
+- Removed permission node: SecureLogin.setMessage.help. Reason: /SetMessageHelp has been removed, making this node useless.
+
+- Added various smaller safety checks and bug fixes.
+- Cleaned up the code more.
+
+- Made everything astonishingly awesome.
+
+Version 1.7.0
+- Cleaned up the code a LOT!
+- New command: /LoginSpawn. Teleport to the login spawn.
+- New permission node: SecureLogin.loginSpawn
+- Fixed any bugs that might have been caused with /SetMessage. Please report in the comments if you find any more.
+
+Version 1.6.5 - 1.6.7
+- Fixed many, many bugs that made the plugin dysfunctional. Most bugs had to do with messing up the code while trying to update it.
+
+Version 1.6.1
+- Added more information to /SetMessage in the help menu.
+
+Version 1.6.0
+- Fixed error while using Console commands.
+- You now freeze where you left the game if there is no login spawn. Not fully tested, please post in the comments if this doesn't work.
+
+Version 1.5.3
+- Updated format of configuration file.
+
+Version 1.5.2
+- Updated the format of permission nodes.
+
+Version 1.5.1
+- Changed the command help menu.
+
+Version 1.5.0
+- Made the thing work.

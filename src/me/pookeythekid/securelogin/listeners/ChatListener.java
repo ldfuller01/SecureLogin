@@ -1,6 +1,6 @@
 package me.pookeythekid.securelogin.listeners;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import me.pookeythekid.securelogin.Main;
 import me.pookeythekid.securelogin.ConfigManager.MyConfig;
@@ -24,26 +24,14 @@ public class ChatListener implements Listener {
 	@EventHandler
 	public void onCmd(PlayerCommandPreprocessEvent e) {
 
-		ArrayList<String> allowedCommands = new ArrayList<String>();
-
 		Player p = e.getPlayer();
 
 		if (M.getConfig().getBoolean("freezeChat")
 				&& M.isFrozen.contains(p)) {
 
-			String[] commands = M.getConfig().getString("allowedCommands").split(",");
-
-			allowedCommands.clear();
-
-			for (String s : commands) {
-
-				allowedCommands.add(s.toLowerCase());
-
-			}
+			List<String> allowedCommands = M.getConfig().getStringList("allowedCommands");
 			
-			String[] args = e.getMessage().split(" ");
-			
-			String cmdName = args[0];
+			String cmdName = e.getMessage().split(" ")[0];
 
 			if (!allowedCommands.contains(cmdName.toLowerCase())) {
 

@@ -13,7 +13,23 @@
 # players will be able to chat both their messages and commands anyway.
 # Notice: You will have to include the aliases to any commands that you want your players to be allowed to enter while frozen.
 # Also Notice: Teleportation commands will not unfreeze a player; they'll still need to log in where they've been teleported to.
-allowedCommands: /login,/register,/sl,/securelogin,/setloginspawn,/loginspawn,/slreload,/createsecurityquestion,/createsq,/changesecurityquestion,/changesq,/createsecurityanswer,/createsa,/changesecurityanswer,/changesa
+allowedCommands:
+- /login
+- /register
+- /sl
+- /securelogin
+- /setloginspawn
+- /loginspawn
+- /slreload
+- /createsecurityquestion
+- /createsq
+- /changesecurityquestion
+- /changesq
+- /createsecurityanswer
+- /createsa
+- /changesecurityanswer
+- /changesa
+- /changepassword
 
 # If changeQWithQuestion is set to true, then players will change their security question with their old security question.
 # If changeQWithPassword is set to true, then players will change their security question with their current password.

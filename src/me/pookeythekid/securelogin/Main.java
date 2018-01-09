@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -502,6 +505,161 @@ public class Main extends JavaPlugin {
 		Permissions.registerPerms(pm);
 
 		try {
+			
+			List<String> allSecureLoginCommands = Arrays.asList(new String[]{"securelogin", "sl", "slreload", "login", "register", "getpassword",
+					"createsecurityquestion", "createsq", "createsecurityanswer", "createsa", "getsecurityquestion", "getsq",
+					"getsecurityanswer", "getsa", "changepassword", "changepasswordfor", "changesecurityquestion", "changesq",
+					"changesqfor", "changesecurityanswer", "changesa", "changesafor", "setloginspawn", "loginspawn"});
+			
+			File cfgFile = new File(getDataFolder(), "config.yml");
+			
+			boolean overwriteFile = false;
+			
+			if (cfgFile.exists()) {
+				
+				List<String> fileLines = new ArrayList<>();
+				
+				LineNumberReader reader = new LineNumberReader(new FileReader(cfgFile));
+				
+				List<String> cmdList = new ArrayList<>();
+				boolean hadBelow = false;
+				
+				while (true) {
+					String line = reader.readLine();
+					if (line == null)
+						break;
+					
+					if (line.startsWith("allowedCommands: ")) {
+						
+						String allowedCommands = line.replaceFirst("allowedCommands: ", "");
+						String nextLine = reader.readLine();
+						
+						cmdList.add("allowedCommands:");
+						
+						// If there is data to the right of allowedCommands
+						if (!allowedCommands.isEmpty()) {
+							// The file is out of date, so make a new one
+							overwriteFile = true;
+							
+							// Add command from horizontal list to cmdList
+							for (String cmd : allowedCommands.split(","))
+								cmdList.add("- " + cmd);
+							
+						} else
+							break; // If we're not updating the file, no point in going on.
+						
+						// If there is data below allowedCommands
+						if (nextLine.startsWith("- ")) {
+							hadBelow = true;
+							
+							LineNumberReader subreader = new LineNumberReader(new FileReader(cfgFile));
+							subreader.setLineNumber(1);
+							boolean adding = false;
+							
+							while (true) {
+								String item = subreader.readLine();
+								if (item == null)
+									break;
+								
+								if (item.startsWith("allowedCommands:")) {
+									adding = true;
+									continue;
+								}
+								
+								if (item.startsWith("- ") && adding)
+									// Add command from vertical list to cmdList
+									cmdList.add(item);
+								
+								// If still trying to add but item does not start with list notation
+								if (!item.startsWith("- ") && adding) {
+									adding = false;
+									break;
+								}
+								
+							}
+							subreader.close();
+						}
+						
+						// This is actually the part that updates the commands I forgot to include in the config
+						boolean addedSLCmds = false;
+						
+						for (String cmd : allSecureLoginCommands)
+							if (!cmdList.contains("- /" + cmd)) {
+								cmdList.add("- /" + cmd);
+								addedSLCmds = true;
+							}
+						
+						// (this isn't the part mentioned directly above)
+						for (int i = 0; i < cmdList.size(); i++) {
+							if (i == cmdList.size()-1 && (!hadBelow || addedSLCmds))
+								fileLines.add(cmdList.get(i) + "\n");
+							else
+								fileLines.add(cmdList.get(i));
+						}
+						
+						
+					} else
+						fileLines.add(line);
+				}
+				
+				reader.close();
+				
+				if (overwriteFile) {
+					
+					// Overwrite the old config file with updated lines
+					
+					List<String> newLines = new ArrayList<>();
+					boolean flip = false;
+					for (String line : fileLines) {
+						
+						if (line.startsWith("allowedCommands:")) {
+							flip = true;
+							newLines.add(line);
+						}
+						
+						else if (flip && !newLines.contains(line))
+							newLines.add(line);
+						
+						else if (flip && line.equals(cmdList.get(cmdList.size()-1)) && hadBelow) {
+							/*
+							 * So here's the deal.
+							 * "cmdList" holds the original last command from the file. "line" here is that actual original last command from the file.
+							 * The last command from cmdList that was put into "fileLines" was only a copy of the original, so == wouldn't work for it.
+							 * 
+							 * So, by the 'if' checks above, the other ORIGINAL commands were kept out of "newLines".
+							 * For whatever reason, the checks do not work on the final command.
+							 * 
+							 * Now because "flip" is on, and "line" has matched with the last command in "cmdList", and since I know that
+							 * the other original commands were successfully removed (through lots of testing),
+							 * then I also know that the "line" directly before this one was the last of the commands from "cmdList."
+							 * 
+							 * Therefore, I can safely remove the previous line and replace it with a string of the same value
+							 * (which is the current "line"), plus an extra \n because for whatever reason it needs that.
+							 * 
+							 */
+							newLines.remove(newLines.size()-1);
+							newLines.add(line + "\n");
+						}
+						
+						else if (flip && line.startsWith("#")) {
+							newLines.add(line);
+							flip = false;
+						}
+						
+						else if (!flip)
+							newLines.add(line);
+						
+					}
+					
+					FileWriter writer = new FileWriter(cfgFile);
+					for (String line : newLines) {
+						writer.write(line + "\n");
+					}
+					writer.close();
+					
+				}
+				
+			}
 
 
 			saveDefaultConfig();
@@ -514,8 +672,6 @@ public class Main extends JavaPlugin {
 
 
 			Set<String> keys = playerFile.getConfigurationSection("Players").getKeys(false);
-
-			// StringBuffer sb = new StringBuffer();
 
 			boolean makeNewPlayerFile = false;
 

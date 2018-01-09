@@ -1,5 +1,5 @@
 package me.pookeythekid.securelogin.ConfigManager;
-import java.io.BufferedReader; 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
